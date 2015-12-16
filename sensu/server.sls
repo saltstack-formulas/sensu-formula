@@ -46,10 +46,22 @@ include:
 
 {% set gem_list = salt['pillar.get']('sensu:server:install_gems', []) %}
 {% for gem in gem_list %}
-install_{{ gem }}:
+{% if gem is mapping %}
+{% set gem_name = gem.name %}
+{% else %}
+{% set gem_name = gem %}
+{% endif %}
+install_{{ gem_name }}:
   gem.installed:
-    - name: {{ gem }}
+    - name: {{ gem_name }}
+    {% if sensu.client.embedded_ruby %}
     - gem_bin: /opt/sensu/embedded/bin/gem
+    {% else %}
+    - gem_bin: None
+    {% endif %}
+    {% if gem.version is defined %}
+    - version: {{ gem.version }}
+    {% endif %}
     - rdoc: False
     - ri: False
 {% endfor %}
