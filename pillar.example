@@ -3,6 +3,8 @@ sensu:
     install_gems:
       - mail
       - timeout
+      - name: aws-sdk
+        version: 2.2.6
   client:
     embedded_ruby: true
     nagios_plugins: true
