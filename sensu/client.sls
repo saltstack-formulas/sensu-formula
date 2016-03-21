@@ -99,3 +99,18 @@ install_{{ gem }}:
     - rdoc: False
     - ri: False
 {% endfor %}
+
+{%- if salt['pillar.get']('sensu:checks') %}
+
+sensu_checks_file:
+  file.serialize:
+    - name: {{ sensu.paths.checks_file }}
+    - dataset:
+        checks: {{ salt['pillar.get']('sensu:checks') }}
+    - formatter: json
+    - require:
+      - pkg: sensu
+    - watch_in:
+      - service: sensu-client
+
+{%- endif %}
