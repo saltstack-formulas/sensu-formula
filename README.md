@@ -6,7 +6,7 @@ A saltstack formula to install and configure the open source monitoring framewor
 >Note:
 See the full [Salt Formulas installation and usage instructions](http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html). This formula only manages Sensu. You are responsible for installing/configuring RabbitMQ and Redis as appropriate.
 
-Sensu can be configured/scaled with the individual states installed on multiple servers. All states are configured via the pillar file. Sane defaults are set in pillar_map.jinja and can be over-written in the pillar. The `sensu.client` state currently supports Ubuntu, CentOS and Windows. The `sensu.server`, `sensu.api` and `sensu.uchiwa` states currently support Ubuntu and CentOS. 
+Sensu can be configured/scaled with the individual states installed on multiple servers. All states are configured via the pillar file. Sane defaults are set in pillar_map.jinja and can be over-written in the pillar. The `sensu.client` state currently supports Ubuntu, CentOS and Windows. The `sensu.server`, `sensu.api` and `sensu.uchiwa` states currently support Ubuntu and CentOS.
 
 Thank you to the SaltStack community for the continued improvement of this formula!
 
@@ -124,6 +124,17 @@ sensu:
         warning: 97
         critical: 99
 ```
+
+If you would like to use the [redact](https://sensuapp.org/docs/latest/clients) feature in your checks you can add a section under client as shown here:
+
+```
+sensu:
+  client:
+    redact:
+      - password
+```
+
+This will redact any command token value who's key is defined as "password" from check configurations and logs. Command token substitution should be used in check configurations when redacting sensitive information such as passwords.
 
 If you are adding plugins/checks which have additional gem dependencies. You can add them to the pillar data and they will be installed on your Sensu clients.
 ```

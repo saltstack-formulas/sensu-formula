@@ -39,6 +39,9 @@ sensu_enable_windows_service:
 {% if sensu.client.get("command_tokens") %}
           command_tokens: {{ sensu.client.command_tokens }}
 {% endif %}
+{% if sensu.client.get("redact") %}
+          redact: {{ sensu.client.redact }}
+{% endif %}
     - require:
       - pkg: sensu
 

@@ -6,6 +6,8 @@ sensu:
   client:
     embedded_ruby: true
     nagios_plugins: true
+    redact:
+      - password
   rabbitmq:
     host: 10.0.0.1
     user: sensu
