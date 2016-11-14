@@ -46,6 +46,9 @@ sensu_enable_windows_service:
           {% if sensu.client.get("redact") %}
           redact: {{ sensu.client.redact }}
           {% endif %}
+          {% if sensu.client.get("environment") %}
+          environment: {{ sensu.client.environment }}
+          {% endif %}
     - require:
       - pkg: sensu
 

@@ -8,6 +8,8 @@ sensu:
   client:
     embedded_ruby: true
     nagios_plugins: true
+    # environment is required by sensu
+    environment: production
     redact:
       - password
   rabbitmq:
