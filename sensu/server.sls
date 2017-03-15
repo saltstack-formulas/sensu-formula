@@ -60,7 +60,7 @@ sensu_handlers_file:
 
 {% set gem_list = salt['pillar.get']('sensu:server:install_gems', []) %}
 {% for gem in gem_list %}
-{% if gem is mapping %}
+{% if mapping(gem) %}
 {% set gem_name = gem.name %}
 {% else %}
 {% set gem_name = gem %}
@@ -73,7 +73,7 @@ install_{{ gem_name }}:
     {% else %}
     - gem_bin: None
     {% endif %}
-    {% if gem.version is defined %}
+    {% if defined(gem.version) %}
     - version: {{ gem.version }}
     {% endif %}
     - rdoc: False
