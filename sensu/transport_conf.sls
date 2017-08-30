@@ -3,7 +3,7 @@
 include:
   - sensu
 
-/etc/sensu/conf.d/transport.conf:
+/etc/sensu/conf.d/transport.json:
   file.serialize:
     - formatter: json
     - user: root
