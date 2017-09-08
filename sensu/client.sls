@@ -4,7 +4,12 @@
 
 include:
   - sensu
+{% if salt['pillar.get']('sensu:server:configure_rabbitmq', True) %}
   - sensu.rabbitmq_conf
+{% endif %}
+{% if salt['pillar.get']('sensu:transport:name') %}
+  - sensu.transport_conf
+{% endif %}
 
 {% if grains['os_family'] == 'Windows' %}
 /opt/sensu/bin/sensu-client.xml:
@@ -133,6 +138,11 @@ sensu-client:
     - enable: True
     - require:
       - file: /etc/sensu/conf.d/client.json
+{% if salt['pillar.get']('sensu:server:configure_rabbitmq', True) %}
       - file: /etc/sensu/conf.d/rabbitmq.json
+{% endif %}
+{% if salt['pillar.get']('sensu:transport:name') %}
+      - file: /etc/sensu/conf.d/transport.json
+{% endif %}
     - watch:
       - file: /etc/sensu/conf.d/*
