@@ -10,6 +10,9 @@ include:
 {% if salt['pillar.get']('sensu:transport:name') %}
   - sensu.transport_conf
 {% endif %}
+{% if salt['pillar.get']('sensu:transport:name') == 'redis' %}
+  - sensu.redis_conf
+{% endif %}
 
 {% if grains['os_family'] == 'Windows' %}
 /opt/sensu/bin/sensu-client.xml:
