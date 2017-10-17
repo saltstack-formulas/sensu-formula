@@ -10,9 +10,9 @@ include:
     - user: {{ files.files.user }}
     - group: {{ files.files.group }}
     - makedirs: True
-    {% if grains['os_family'] != 'Windows' %}
-    - mode: 644
-    {% endif %}
+    {%- if grains['os_family'] != 'Windows' %}
+    - mode: 640
+    {%- endif %}
     - dataset:
         rabbitmq:
           host: {{ sensu.rabbitmq.host }}

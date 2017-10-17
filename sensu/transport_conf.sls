@@ -1,4 +1,5 @@
 {% from "sensu/pillar_map.jinja" import sensu with context -%}
+{% from "sensu/configfile_map.jinja" import files with context %}
 
 include:
   - sensu
@@ -8,7 +9,9 @@ include:
     - formatter: json
     - user: {{ files.files.user }}
     - group: {{ files.files.group }}
+    {%- if grains['os_family'] != 'Windows' %}
     - mode: 644
+    {%- endif %}
     - require:
       - pkg: sensu
     - dataset:

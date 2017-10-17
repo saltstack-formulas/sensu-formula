@@ -1,4 +1,5 @@
 {% from "sensu/pillar_map.jinja" import sensu with context -%}
+{% from "sensu/configfile_map.jinja" import files with context %}
 
 include:
   - sensu
@@ -12,6 +13,10 @@ include:
     - template: jinja
     - user: {{ files.files.user }}
     - group: {{ files.files.group }}
+    {%- if grains['os_family'] != 'Windows' %}
+    - file_mode: 640
+    - dir_mode: 750
+    {%- endif %}
     - require:
       - pkg: sensu
     - watch_in:
@@ -26,6 +31,9 @@ sensu_subscription_checks_file:
     - formatter: json
     - user: {{ files.files.user }}
     - group: {{ files.files.group }}
+    {%- if grains['os_family'] != 'Windows' %}
+    - mode: 640
+    {%- endif %}
     - require:
       - pkg: sensu
     - watch_in:
