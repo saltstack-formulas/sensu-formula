@@ -1,8 +1,8 @@
 {% set files = salt['grains.filter_by']({
     'default': {
         'files': {
-            'user': 'root',
-            'group': 'root',
+            'user': 'sensu',
+            'group': 'sensu',
         },
     },
     'Windows': {
