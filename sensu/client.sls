@@ -29,6 +29,8 @@ sensu_standalone_checks_file:
     - dataset:
         checks: {{ salt['pillar.get']('sensu:standalone_checks') }}
     - formatter: json
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     - require:
       - pkg: sensu
     - watch_in:
@@ -42,8 +44,8 @@ sensu_standalone_checks_file:
 /etc/sensu/conf.d/client.json:
   file.serialize:
     - formatter: json
-    - user: {{files.files.user}}
-    - group: {{files.files.group}}
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     {% if grains['os_family'] != 'Windows' %}
     - mode: 644
     {% endif %}

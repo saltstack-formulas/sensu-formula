@@ -10,6 +10,8 @@ include:
   file.recurse:
     - source: salt://{{ sensu.paths.conf_d }}
     - template: jinja
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     - require:
       - pkg: sensu
     - watch_in:
@@ -22,6 +24,8 @@ sensu_subscription_checks_file:
     - dataset:
         checks: {{ salt['pillar.get']('sensu:checks') }}
     - formatter: json
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     - require:
       - pkg: sensu
     - watch_in:
@@ -39,6 +43,8 @@ sensu_handlers_file:
     - name: {{ sensu.paths.handlers_file }}
     - dataset_pillar: sensu:handlers
     - formatter: json
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     - require:
       - pkg: sensu
     - watch_in:

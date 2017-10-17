@@ -3,8 +3,8 @@
 /etc/sensu/conf.d/redis.json:
   file.serialize:
     - formatter: json
-    - user: root
-    - group: root
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     - mode: 644
     - require:
       - pkg: sensu

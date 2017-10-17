@@ -10,9 +10,9 @@ uchiwa:
   file.serialize:
     - name: /etc/sensu/uchiwa.json
     - formatter: json
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     - mode: 644
-    - user: uchiwa
-    - group: sensu
     - require:
       - pkg: uchiwa
     - dataset:

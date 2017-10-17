@@ -7,8 +7,8 @@ include:
 /etc/sensu/conf.d/rabbitmq.json:
   file.serialize:
     - formatter: json
-    - user: {{files.files.user}}
-    - group: {{files.files.group}}
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     - makedirs: True
     {% if grains['os_family'] != 'Windows' %}
     - mode: 644
