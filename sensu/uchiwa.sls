@@ -1,4 +1,5 @@
 {% from "sensu/pillar_map.jinja" import sensu with context -%}
+{% from "sensu/configfile_map.jinja" import files with context %}
 
 include:
   - sensu
@@ -10,9 +11,9 @@ uchiwa:
   file.serialize:
     - name: /etc/sensu/uchiwa.json
     - formatter: json
-    - mode: 644
-    - user: uchiwa
-    - group: sensu
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
+    - mode: 640
     - require:
       - pkg: uchiwa
     - dataset:

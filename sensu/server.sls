@@ -1,4 +1,5 @@
 {% from "sensu/pillar_map.jinja" import sensu with context -%}
+{% from "sensu/configfile_map.jinja" import files with context %}
 
 include:
   - sensu
@@ -10,6 +11,12 @@ include:
   file.recurse:
     - source: salt://{{ sensu.paths.conf_d }}
     - template: jinja
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
+    {%- if grains['os_family'] != 'Windows' %}
+    - file_mode: 640
+    - dir_mode: 750
+    {%- endif %}
     - require:
       - pkg: sensu
     - watch_in:
@@ -22,6 +29,11 @@ sensu_subscription_checks_file:
     - dataset:
         checks: {{ salt['pillar.get']('sensu:checks') }}
     - formatter: json
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
+    {%- if grains['os_family'] != 'Windows' %}
+    - mode: 640
+    {%- endif %}
     - require:
       - pkg: sensu
     - watch_in:
@@ -39,6 +51,8 @@ sensu_handlers_file:
     - name: {{ sensu.paths.handlers_file }}
     - dataset_pillar: sensu:handlers
     - formatter: json
+    - user: {{ files.files.user }}
+    - group: {{ files.files.group }}
     - require:
       - pkg: sensu
     - watch_in:
