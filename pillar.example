@@ -21,6 +21,13 @@ sensu:
     host: 10.0.0.1
     user: sensu
     password: secret
+  redis:
+    host: 10.0.0.1
+    port: 6379
+    reconnect_on_error: True
+    sentinels:
+      - host: localhost
+        port: 26379
   api:
     password: secret
   ssl:

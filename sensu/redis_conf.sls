@@ -13,4 +13,4 @@
           host: {{ sensu.redis.host }}
           {% if sensu.redis.password is defined and sensu.redis.password is not none %}password: {{ sensu.redis.password }}{% endif %}
           port: {{ sensu.redis.port }}
-
+          {% if sensu.redis.sentinels is defined and sensu.redis.sentinels is not none %}sentinels: {{ sensu.redis.sentinels }}{% endif %}
