@@ -60,7 +60,7 @@ sensu_standalone_checks_file:
         client:
           name: {{ sensu.client.name }}
           address: {{ sensu.client.address }}
-          subscriptions: {{ sensu.client.subscriptions }}
+          subscriptions: {{ sensu.client.subscriptions + pillar.get('role', []) }}
           safe_mode: {{ sensu.client.safe_mode }}
           {% if sensu.client.get('keepalive') %}
           keepalive: {{ sensu.client.keepalive }}
