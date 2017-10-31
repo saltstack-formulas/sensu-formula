@@ -9,16 +9,25 @@ sensu:
       - timeout
       - name: aws-sdk
         version: 2.2.6
+    configure_rabbitmq: true
   client:
     embedded_ruby: true
     nagios_plugins: true
     redact:
       - password
     gem_proxy: http://192.168.1.1:3128/
+    configure_rabbitmq: true
   rabbitmq:
     host: 10.0.0.1
     user: sensu
     password: secret
+  redis:
+    host: 10.0.0.1
+    port: 6379
+    reconnect_on_error: True
+    sentinels:
+      - host: localhost
+        port: 26379
   api:
     password: secret
   ssl:

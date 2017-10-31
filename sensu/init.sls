@@ -52,3 +52,9 @@ old sensu repository:
     - require_in:
       - pkg: sensu
 {% endif %}
+
+
+{% if not salt['pillar.get']('sensu:server:configure_rabbitmq', True) %}
+/etc/sensu/conf.d/rabbitmq.json:
+  file.absent
+{% endif %}

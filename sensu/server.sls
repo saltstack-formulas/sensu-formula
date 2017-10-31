@@ -3,7 +3,9 @@
 include:
   - sensu
   - sensu.api_conf # Some handlers need to access the API server
+{% if salt['pillar.get']('sensu:server:configure_rabbitmq', True) %}
   - sensu.rabbitmq_conf
+{% endif %}
   - sensu.redis_conf
 
 /etc/sensu/conf.d:
@@ -102,4 +104,6 @@ sensu-server:
     - enable: True
     - require:
       - file: /etc/sensu/conf.d/redis.json
+{% if salt['pillar.get']('sensu:server:configure_rabbitmq', True) %}
       - file: /etc/sensu/conf.d/rabbitmq.json
+{% endif %}
