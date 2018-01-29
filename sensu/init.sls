@@ -36,9 +36,13 @@ sensu:
     {% endif %}
     - require_in:
       - pkg: sensu
+  pkg.installed:
+    - version: {{ repos.get('pkg_version') }}
   {% endif %}
+  {% else %}
   pkg:
     - installed
+  {% endif %}
 
 {% if grains['os_family'] != 'Windows' %}
 old sensu repository:

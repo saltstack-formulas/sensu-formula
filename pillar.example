@@ -3,6 +3,7 @@ sensu:
     repos:
       name: deb http://repositories.sensuapp.org/apt sensu main
       key_url: http://repositories.sensuapp.org/apt/pubkey.gpg
+      pkg_version: 1.2.0-1
   server:
     install_gems:
       - mail

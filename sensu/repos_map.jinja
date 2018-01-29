@@ -3,11 +3,13 @@
         'enabled': True,
         'name': 'deb https://sensu.global.ssl.fastly.net/apt ' ~ grains.oscodename ~ ' main',
         'key_url': 'https://sensu.global.ssl.fastly.net/apt/pubkey.gpg',
+        'pkg_version': 'latest',
     },
     'RedHat': {
         'enabled': True,
         'baseurl': 'https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/',
         'gpgcheck': '0',
+        'pkg_version': 'latest',
     },
     'Windows': {
         'enabled': False,
