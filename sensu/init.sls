@@ -36,8 +36,13 @@ sensu:
     {% endif %}
     - require_in:
       - pkg: sensu
+  {%- if repos.get('pkg_version') %}
   pkg.installed:
     - version: {{ repos.get('pkg_version') }}
+  {%- else %}
+  pkg:
+    - latest
+  {%- endif %}
   {% endif %}
   {% else %}
   pkg:
